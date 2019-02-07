@@ -1,16 +1,25 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.urls import reverse
+from django.views import generic
 from .models import Question, Choice
 # Create your views here.
 
-def index(request):
-    questions = Question.objects.order_by('-question_published_date')[:5]
-    
-    return render(request, 'poll/index.html', {'questions': questions})
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'poll/detail.html', {'question':question})
+class IndexView(generic.ListView):
+    template_name = 'poll/index.html'
+    context_object_name = 'questions'
+
+    def get_queryset(self):
+        return Question.objects.order_by('-question_published_date')[:5]
+
+class DetailView(generic.DetailView):
+    template_name = 'poll/detail.html'
+    model = Question
+
+class ResultsView(generic.DetailView):
+    template_name = 'poll/results.html'
+    model = Question
+
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
@@ -23,7 +32,6 @@ def vote(request, question_id):
         choice.save()
         return HttpResponseRedirect(reverse('poll:results', args=(question.id,)))
 
-
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'poll/results.html', {'question': question})
+class ResultsView(generic.DetailView):
+    template_name = 'poll/results.html'
+    model = Question
