@@ -1,4 +1,4 @@
-{% if questions %}
+<!-- {% if questions %}
     <ul>
     {% for question in questions %}
         <li><a href="{% url 'poll:detail' question.id %}">{{ question.question_content }}</a></li>
@@ -6,4 +6,43 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
-{% endif %}
+{% endif %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    {% if questions%}
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m6">
+                    {% for question in questions%}
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">{{question.question_content}}</span>
+                                <p>
+                                    this question was published : 
+                                    <span class="grey-text text-lighten-2">{{question.question_published_date}}</span>
+                                </p>
+                            </div>
+                            <div class="card-action">
+                                <a href="{%url 'poll:detail' question.id%}">Detail</a>
+                            </div>
+                        </div>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    {%else%}
+        <p>No polls are available.</p>
+    {%endif%}
+</body>
+</html>
+
+            
