@@ -2,3 +2,5 @@
 db.sqlite3
 poll/templates/poll/index.html
 __pycache__/
+manage.py
+.gitignore
