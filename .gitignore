@@ -1,6 +1,8 @@
-./**/*.pyc
-db.sqlite3
-poll/templates/poll/index.html
+*.log
+*.pot
+*.pyc
 __pycache__/
-manage.py
-.gitignore
+local_settings.py
+
+.env
+db.sqlite3
